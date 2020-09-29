@@ -15,6 +15,8 @@ contract tron {
     user u;
     uint randomNo;
     uint copyOfRandomNo;
+    uint i=0;
+    uint count = 0;
     
     function getReferalCode() public returns(uint){
         randomNo = random();
@@ -35,22 +37,39 @@ contract tron {
         return referal[randomNo].referalCode;
     }
     
-    function transferReward(uint _amount) public payable returns(address payable[] memory, uint[] memory) {
+    function transferReward(uint _amount) public payable returns( uint[] memory) {
         
 
             delete referalCodeAddress; // referalCodeAddress.length = 0;
             delete referalCodeArray; 
+            
             uint presentReferalCode = copyOfRandomNo;
             
-             while(referal[copyOfRandomNo].usedReferalCode>0){
-                 referalCodeAddress.push(referal[referal[copyOfRandomNo].usedReferalCode].userAddress);
-                 referalCodeArray.push(referal[referal[copyOfRandomNo].usedReferalCode].referalCode);
-                 referal[referal[copyOfRandomNo].usedReferalCode].counter++;
-                 copyOfRandomNo = referal[copyOfRandomNo].usedReferalCode;
-             }
-             
-             directConnections[referal[presentReferalCode].usedReferalCode].push(referal[presentReferalCode].referalCode);
-            return (referalCodeAddress, referalCodeArray);
+            uint directConnectionsLength = directConnections[referal[presentReferalCode].usedReferalCode].length;
+            directConnections[referal[presentReferalCode].usedReferalCode].push(referal[presentReferalCode].referalCode);
+            
+            if( directConnectionsLength > 0 && directConnectionsLength >= 3){
+                     referal[presentReferalCode].usedReferalCode = directConnections[referal[presentReferalCode].usedReferalCode][i];
+                     count = count+1;
+                     directConnections[referal[presentReferalCode].usedReferalCode].push(referal[presentReferalCode].referalCode);
+                     
+                     if(count==3){
+                         i=i+1;
+                         count = 0;
+                     }
+                     
+            }
+                 
+            while(referal[copyOfRandomNo].usedReferalCode>0){
+                 
+                 //referalCodeAddress.push(referal[referal[copyOfRandomNo].usedReferalCode].userAddress); //This is for transfer array
+                 referalCodeArray.push(referal[referal[copyOfRandomNo].usedReferalCode].referalCode); //This is for associated referal code array. 
+                 referal[referal[copyOfRandomNo].usedReferalCode].counter++; //This is for no. of direct connections
+                 copyOfRandomNo = referal[copyOfRandomNo].usedReferalCode; //Moving upward
+            }
+                         
+            //return (referalCodeAddress, referalCodeArray);
+            return referalCodeArray;
 
     }
     
