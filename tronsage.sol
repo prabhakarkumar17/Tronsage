@@ -8,6 +8,7 @@ contract tron {
         uint usedReferalCode;
         uint referalCode;
         uint counter;
+        uint i;
     }
     
     address payable[] referalCodeAddress;
@@ -17,6 +18,7 @@ contract tron {
     uint copyOfRandomNo;
     uint i=0;
     uint count = 0;
+    uint level;
     
     function getReferalCode() public returns(uint){
         randomNo = random();
@@ -44,17 +46,30 @@ contract tron {
             delete referalCodeArray; 
             
             uint presentReferalCode = copyOfRandomNo;
-            
             uint directConnectionsLength = directConnections[referal[presentReferalCode].usedReferalCode].length;
             directConnections[referal[presentReferalCode].usedReferalCode].push(referal[presentReferalCode].referalCode);
             
             if( directConnectionsLength > 0 && directConnectionsLength >= 3){
-                     referal[presentReferalCode].usedReferalCode = directConnections[referal[presentReferalCode].usedReferalCode][i];
+                     uint originalReferalCode = referal[presentReferalCode].usedReferalCode;
+                     uint k = 0;
+                     
+                     while(k<3){
+                        if(directConnections[directConnections[referal[presentReferalCode].usedReferalCode][referal[referal[presentReferalCode].usedReferalCode].i]].length == 3){
+                         referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
+                      } else {
+                          break;
+                      }
+                    }
+                     
+                     referal[presentReferalCode].usedReferalCode = directConnections[referal[presentReferalCode].usedReferalCode][referal[referal[presentReferalCode].usedReferalCode].i];
                      count = count+1;
                      directConnections[referal[presentReferalCode].usedReferalCode].push(referal[presentReferalCode].referalCode);
                      
                      if(count==3){
-                         i=i+1;
+                         referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
+                         //i++;
+                         //referal[referal[presentReferalCode].usedReferalCode].i++;
+                        //referal[presentReferalCode].i = referal[presentReferalCode].i+1;
                          count = 0;
                      }
                      
@@ -68,6 +83,7 @@ contract tron {
                  copyOfRandomNo = referal[copyOfRandomNo].usedReferalCode; //Moving upward
             }
                          
+            // return directConnections[referal[presentReferalCode].usedReferalCode][0];                 
             //return (referalCodeAddress, referalCodeArray);
             return referalCodeArray;
 
