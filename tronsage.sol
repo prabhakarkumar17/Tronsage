@@ -65,13 +65,18 @@ contract tron {
                      count = count+1;
                      directConnections[referal[presentReferalCode].usedReferalCode].push(referal[presentReferalCode].referalCode);
                      
-                     if(count==3){
+                     if(directConnections[directConnections[referal[presentReferalCode].usedReferalCode][referal[referal[presentReferalCode].usedReferalCode].i]].length == 3){
                          referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
-                         //i++;
-                         //referal[referal[presentReferalCode].usedReferalCode].i++;
-                        //referal[presentReferalCode].i = referal[presentReferalCode].i+1;
-                         count = 0;
+                         
                      }
+                      
+                    //  if(count==3){
+                    //      referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
+                    //      //i++;
+                    //      //referal[referal[presentReferalCode].usedReferalCode].i++;
+                    //     //referal[presentReferalCode].i = referal[presentReferalCode].i+1;
+                    //      count = 0;
+                    //  }
                      
             }
                  
