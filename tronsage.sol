@@ -54,7 +54,7 @@ contract tron {
                      uint k = 0;
                      
                      while(k<3){
-                        if(directConnections[directConnections[referal[presentReferalCode].usedReferalCode][referal[referal[presentReferalCode].usedReferalCode].i]].length == 3){
+                        if(directConnections[directConnections[referal[presentReferalCode].usedReferalCode][referal[referal[presentReferalCode].usedReferalCode].i]].length >= 3){
                          referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
                       } else {
                           break;
@@ -65,10 +65,10 @@ contract tron {
                      count = count+1;
                      directConnections[referal[presentReferalCode].usedReferalCode].push(referal[presentReferalCode].referalCode);
                      
-                     if(directConnections[directConnections[referal[presentReferalCode].usedReferalCode][referal[referal[presentReferalCode].usedReferalCode].i]].length == 3){
-                         referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
+                    //  if(directConnections[directConnections[referal[presentReferalCode].usedReferalCode][referal[referal[presentReferalCode].usedReferalCode].i]].length >= 3){
+                    //      referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
                          
-                     }
+                    //  }
                       
                     //  if(count==3){
                     //      referal[originalReferalCode].i = referal[originalReferalCode].i + 1;
